@@ -4,13 +4,14 @@ AltFstAligner
 An alternative OpenFst-based aligner for grapheme-to-phoneme conversion.
 
 USAGE:
+```
 #Basic usage
 $ cd src/ && make install && cd ..
 $ ./altfst-align --corpus=input.dict --verbose=2 > output.corpus
 
 #For numerous options
 $ ./altfst-align --help
-
+```
 WARNING:
  * Haven't tested on linux yet.
  * Should be UTF8 compatible, but no extensive tests yet.
@@ -28,6 +29,7 @@ Results are a tiny bit different to the original and produce different
 accuracies in the G2P model-building and decoding stages:
 
 Original:
+```
 Words: 12000  Hyps: 12000 Refs: 12000
 ######################################################################
                           EVALUATION RESULTS
@@ -42,8 +44,9 @@ Words: 12000  Hyps: 12000 Refs: 12000
 % Sequence ER (E/S)       -- %24.42
 % Sequence Acc (1.0-E/S)  -- %75.58
 ######################################################################
-
+```
 AltFstAligner:
+```
 Words: 12000  Hyps: 12000 Refs: 12000
 ######################################################################
                           EVALUATION RESULTS
@@ -58,7 +61,7 @@ Words: 12000  Hyps: 12000 Refs: 12000
 % Sequence ER (E/S)       -- %24.45
 % Sequence Acc (1.0-E/S)  -- %75.55
 ######################################################################
-
+```
 I'm not sure exactly where the difference is coming from yet, but I suspect
 that it is not statistically significant. Could be nice for model combination.
 
