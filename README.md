@@ -11,7 +11,19 @@ $ ./altfst-align --corpus=input.dict --verbose=2 > output.corpus
 
 #For numerous options
 $ ./altfst-align --help
+
+#Sample toy data to illustrate default formatting
+AABERG  AA B ER G
+AACHEN  AA K AH N
+A       AH
+AAKER   AA K ER
+AALSETH AA L S EH TH
+AAMODT  AA M AH T
+AANCOR  AA N K AO R
+AARDEMA AA R D EH M AH
+AARDVARK        AA R D V AA R K
 ```
+
 WARNING:
  * Haven't tested on linux yet.
  * Should be UTF8 compatible, but no extensive tests yet.
