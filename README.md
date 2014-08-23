@@ -16,14 +16,15 @@ WARNING:
  * Haven't tested on linux yet.
  * Should be UTF8 compatible, but no extensive tests yet.
 
-
-
 More or less the same thing that is in Phonetisaurus.
 Intended to replace M2MAligner, this version stores the alignment
-Fsts offline in a FarArchive.
+Fsts offline in a FarArchive during training.
 
-Turns out this is both way lower memory (25mb vs 300mb...) but 
-it is also faster.
+Achieves more or less identical accuracy on the CMU datasets (see below),
+but makes some important improvements:
+ * Extremely low memory: 300+MB -> 25MB (CMUdict)
+ * Roughly %10 faster.
+ * Hopefully better code as well.
 
 Results are a tiny bit different to the original and produce different
 accuracies in the G2P model-building and decoding stages:
