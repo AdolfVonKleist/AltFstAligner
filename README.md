@@ -3,6 +3,9 @@ AltFstAligner
 
 An alternative OpenFst-based aligner for grapheme-to-phoneme conversion.
 
+Tested with CMUdict, and with 1.8M entry Russian lexicon.  UTF8 compliant,
+much lower memory than previous versions.
+
 USAGE:
 ```
 #Basic usage
@@ -26,7 +29,6 @@ AARDVARK        AA R D V AA R K
 
 WARNING:
  * Haven't tested on linux yet.
- * Should be UTF8 compatible, but no extensive tests yet.
 
 More or less the same thing that is in Phonetisaurus.
 Intended to replace M2MAligner, this version stores the alignment

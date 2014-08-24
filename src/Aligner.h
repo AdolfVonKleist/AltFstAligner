@@ -99,10 +99,9 @@ class Aligner {
     tmpfar_reader_->Reset ();
     vector<Weight> alpha, beta;
     for (int i = 1; !tmpfar_reader_->Done (); tmpfar_reader_->Next (), ++i) {
-      /*
-      if (verbose_ && i % 10000 == 0)
+      if (verbose_ >= 2 && i % 10000 == 0)
 	cout << "E-step processed: " << i << endl;
-      */
+
       string key = tmpfar_reader_->GetKey ();
       VectorFst<Arc> fst (tmpfar_reader_->GetFst ());
       ArcMap (&fst, EMWeightMapper<Arc> (emmap_));

@@ -20,7 +20,7 @@ DEFINE_string (eps,      "_", "Epsilon symbol used to represent insertions/delet
 DEFINE_double (thresh,   0.001, "Minimum change for EM termination.");
 DEFINE_bool   (ins,      false, "Permit insertions (graphemic nulls).");
 DEFINE_bool   (del,      true, "Permit deletions (phonemic nulls).");
-DEFINE_int32 (max_iter, 12, "Maximum number of EM iterations.");
+DEFINE_int32  (max_iter, 12, "Maximum number of EM iterations.");
 DEFINE_int32  (max_g,    2, "Maximum subsequence length for graphemes.");
 DEFINE_int32  (max_p,    2, "Maximum subsequence length for phonemes.");
 DEFINE_int32  (verbose,  0, "Verbosity level."); 
