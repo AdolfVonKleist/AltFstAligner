@@ -44,6 +44,7 @@ class Aligner {
     
     FarWriter<Arc>* tmpfar_writer = FarWriter<Arc>::Create (tmpfar_name, FAR_DEFAULT);
 
+    total_ = Weight::Zero ();
     //Write the unweighted, processed alignment lattices to disk
     for (int i = 0; i < reader_.entries.size (); i++) {
       const Entry& entry = reader_.entries [i];
@@ -333,6 +334,8 @@ class Aligner {
       lw [olabel] = weight;
       emmap_prev_[ilabel] = lw;
     } else if (emmap_prev_[ilabel].find (olabel) == emmap_prev_[ilabel].end ()) {
+      emmap_prev_[ilabel][olabel] = weight;
+    } else {
       emmap_prev_[ilabel][olabel] = Plus (emmap_prev_[ilabel][olabel], weight);
     }
     total_ = Plus (total_, weight);
