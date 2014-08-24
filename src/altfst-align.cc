@@ -42,6 +42,7 @@ int main (int argc, char* argv []) {
   Aligner<VectorFst<LogArc> > aligner (reader, utfmap, 
 				       FLAGS_max_g, FLAGS_max_p, 
 				       FLAGS_ins, FLAGS_del, 
+				       FLAGS_mdelim, FLAGS_cdelim,
 				       isyms, osyms,
 				       FLAGS_prefix, JOINT_MAX,
 				       FLAGS_verbose);

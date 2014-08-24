@@ -23,11 +23,12 @@ class Aligner {
   typedef unordered_map<Label, int> PenaltyMap;
 
   Aligner (const DictionaryReader& reader, UTFMap& utfmap, 
-	   int gmax, int pmax, bool delg, bool delp,
+	   int gmax, int pmax, bool delg, bool delp, 
+	   const string mdelim, const string cdelim,
 	   SymbolTable& isyms, SymbolTable& osyms, 
 	   const string& far_name, MaxType max_type, int verbose = 0)
     : reader_(reader), utfmap_(utfmap), gmax_(gmax), pmax_(pmax), 
-      delg_(delg), delp_(delp), 
+      delg_(delg), delp_(delp), mdelim_(mdelim), cdelim_(cdelim),
       isyms_(isyms), osyms_(osyms),
       far_name_(far_name), max_type_(max_type), verbose_(verbose) { 
     }
@@ -145,7 +146,7 @@ class Aligner {
 	for (ArcIterator<VectorFst<StdArc> > aiter (ofst, q); !aiter.Done ();
 	     aiter.Next ()) {
 	  const StdArc& arc = aiter.Value ();
-	  cout << isyms_.Find (arc.ilabel) << "}" << osyms_.Find (arc.olabel)
+	  cout << isyms_.Find (arc.ilabel) << mdelim_ << osyms_.Find (arc.olabel)
 	       << ((ofst.Final (arc.nextstate) != Weight::Zero ()) ? "\n" : " ");
 	}
       }      
@@ -309,7 +310,7 @@ class Aligner {
       for (int j = 0; j < utfmap_[subseq [i]].size (); j++) 
 	utf8::append (utfmap_[subseq [i]][j], back_inserter (utfchars));
       if (i < end - 1)
-	utfchars.append ("|");
+	utfchars.append (cdelim_);
     }
     
     if (input) {
@@ -439,6 +440,8 @@ class Aligner {
   int pmax_;
   bool delg_;
   bool delp_;
+  const string mdelim_;
+  const string cdelim_;
   SymbolTable& isyms_;
   SymbolTable& osyms_;
   const string& far_name_;
