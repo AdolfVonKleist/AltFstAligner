@@ -30,13 +30,13 @@ CC=g++
 
 UNAME := $(shell uname)
 ifeq ($(UNAME), Darwin)
-LIBS=-lfst -L/usr/local/lib/fst /usr/local/lib/fst/libfstfar.dylib
+LIBS=-lfst /usr/local/lib/fst/libfstfar.dylib
 endif
 
 ifeq ($(UNAME), Linux)
-LIBS=-lfst -ldl -lm -lrt
+LIBS=-lfst -ldl -lm -lrt -lfstfar
 endif
-CC=g++ -std=c++0x -ldl -Wall -Wno-sign-compare
+CC=g++ -std=c++0x -Wall -Wno-sign-compare
 
 OUT=$(OBJS)
 
@@ -46,13 +46,14 @@ THIRD_PARTIES_INCLUDE ?= -I3rdparty/utfcpp
 EXTRA=$(CFLAGS) $(THIRD_PARTIES_INCLUDE) $(CXXFLAGS) $(CPPFLAGS) #-fopenmp
 
 %.o: %.cc
-	$(CC) $(EXTRA) $(LIBS) -c $(<) -o $(@)
+	$(CC) $(EXTRA) -c $(<) -o $(@) 
 
 all: altfst-align
 
 altfst-align: Aligner.h DictionaryReader.h altfst-align.o
-	$(CC) $(EXTRA) $(LIBS) -L/usr/local/lib/fst /usr/local/lib/fst/libfstfar.dylib \
-	-funroll-loops -I. -ffast-math altfst-align.o -o altfst-align
+	$(CC) $(EXTRA) $(LIBS) -L/usr/local/lib/fst \
+	-funroll-loops -I. -ffast-math altfst-align.o \
+	-o altfst-align $(LIBS)
 
 install: all
 	install -c altfst-align ../altfst-align

@@ -6,6 +6,12 @@ An alternative OpenFst-based aligner for grapheme-to-phoneme conversion.
 Tested with CMUdict, and with 1.8M entry Russian lexicon.  UTF8 compliant,
 much lower memory than previous versions.
 
+REQUIREMENTS:
+Requires OpenFst v1.4.1+.  This version of OpenFst breaks compatibility
+with previous versions.  It requires -std=c++0x.  You can get it here:
+
+http://openfst.org/twiki/pub/FST/FstDownload/openfst-1.4.1.tar.gz
+
 USAGE:
 ```
 #Basic usage
@@ -28,7 +34,7 @@ AARDVARK        AA R D V AA R K
 ```
 
 WARNING:
- * Haven't tested on linux yet.
+ * Tested only on latest Ubuntu.
 
 More or less the same thing that is in Phonetisaurus.
 Intended to replace M2MAligner, this version stores the alignment
