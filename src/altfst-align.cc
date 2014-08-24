@@ -29,6 +29,11 @@ int main (int argc, char* argv []) {
   string usage = "altfst-align --corpus=input.dict > aligned.corpus\n\n Usage:";
   set_new_handler (FailedNewHandler);
   SetFlags (usage.c_str (), &argc, &argv, false);
+  if (FLAGS_corpus.compare ("") == 0) {
+    cerr << argv [0] << ": --corpus parameter must be set!" << endl;
+    cerr << " See --help for details." << endl;
+    exit (1);
+  }
 
   UTFMap utfmap;
   DictionaryReader reader (FLAGS_gdelim, FLAGS_pdelim, FLAGS_edelim, utfmap);
@@ -60,5 +65,5 @@ int main (int argc, char* argv []) {
 
   aligner.PrintOneBestAlignments ();
 
-  return 1;
+  return 0;
 }
