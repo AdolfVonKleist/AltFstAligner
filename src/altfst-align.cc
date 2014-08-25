@@ -17,7 +17,7 @@ DEFINE_string (edelim,   "\t", "Word/Pron delimiter.");
 DEFINE_string (cdelim,   "|", "Output chunk delimiter: P|H}f.");
 DEFINE_string (mdelim,   "}", "Output graph/phon multigram delimiter: P|H}f.");
 DEFINE_string (eps,      "_", "Epsilon symbol used to represent insertions/deletions.");
-DEFINE_double (thresh,   0.001, "Minimum change for EM termination.");
+DEFINE_double (thresh,   -1, "Minimum change for EM termination.");
 DEFINE_bool   (ins,      false, "Permit insertions (graphemic nulls).");
 DEFINE_bool   (del,      true, "Permit deletions (phonemic nulls).");
 DEFINE_int32  (max_iter, 12, "Maximum number of EM iterations.");
@@ -59,7 +59,7 @@ int main (int argc, char* argv []) {
     if (FLAGS_verbose >= 1 && i > 0)
       cerr << "Iter: " << i << " Change: " << change << endl;
 
-    if (i > 0 && change < FLAGS_thresh)
+    if (FLAGS_thresh > 0  && i > 0 && change < FLAGS_thresh)
       break;
   }
 
