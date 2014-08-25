@@ -17,6 +17,7 @@ DEFINE_string (edelim,   "\t", "Word/Pron delimiter.");
 DEFINE_string (cdelim,   "|", "Output chunk delimiter: P|H}f.");
 DEFINE_string (mdelim,   "}", "Output graph/phon multigram delimiter: P|H}f.");
 DEFINE_string (eps,      "_", "Epsilon symbol used to represent insertions/deletions.");
+DEFINE_string (max_type, "joint", "Maximization type: join, pg, [gp].");
 DEFINE_double (thresh,   -1, "Minimum change for EM termination.");
 DEFINE_bool   (ins,      false, "Permit insertions (graphemic nulls).");
 DEFINE_bool   (del,      true, "Permit deletions (phonemic nulls).");
@@ -35,6 +36,20 @@ int main (int argc, char* argv []) {
     exit (1);
   }
 
+  MaxType max_type = JOINT_MAX;
+  if (FLAGS_max_type.compare ("joint") == 0)
+    max_type = JOINT_MAX;
+  else if (FLAGS_max_type.compare ("pg") == 0)
+    max_type = PG_MAX;
+  else if (FLAGS_max_type.compare ("gp") == 0) {
+    cerr << "--max_type 'gp' not yet supported." << endl;
+    cerr << " See --help for details." << endl;
+    exit (1);
+  } else {
+    cerr << "--max_type must be one of 'join', 'gp', 'pg'." << endl;
+    cerr << " See --help for details." << endl;
+  }
+
   UTFMap utfmap;
   DictionaryReader reader (FLAGS_gdelim, FLAGS_pdelim, FLAGS_edelim, utfmap);
   reader.ReadTrainingFile (FLAGS_corpus);
@@ -49,7 +64,7 @@ int main (int argc, char* argv []) {
 				       FLAGS_ins, FLAGS_del, 
 				       FLAGS_mdelim, FLAGS_cdelim,
 				       isyms, osyms,
-				       FLAGS_prefix, JOINT_MAX,
+				       FLAGS_prefix, max_type,
 				       FLAGS_verbose);
   aligner.InitModel ();
   for (int i = 0; i < FLAGS_max_iter + 1; i++) {

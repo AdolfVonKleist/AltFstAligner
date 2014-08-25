@@ -76,9 +76,9 @@ class Aligner {
 
   double MaximizationStep () {
     double change = GetChange ();
+    total_prev_ = total_;
 
     if (max_type_ == JOINT_MAX) {
-      total_prev_ = total_;
       for (typename EMMap::iterator it = emmap_prev_.begin (); 
 	   it != emmap_prev_.end (); ++it) {
 	for (typename LWMap::iterator jt = emmap_prev_[it->first].begin ();
@@ -88,8 +88,23 @@ class Aligner {
 	}
       }
       total_ = Weight::Zero ();
-    } else if (max_type_ == GP_MAX) {
     } else if (max_type_ == PG_MAX) {
+      for (typename EMMap::iterator it = emmap_prev_.begin (); 
+	   it != emmap_prev_.end (); ++it) {
+	total_ = Weight::Zero ();
+	for (typename LWMap::iterator jt = emmap_prev_[it->first].begin ();
+	     jt != emmap_prev_[it->first].end (); ++jt)
+	  total_ = Plus (total_, jt->second);
+	
+	for (typename LWMap::iterator jt = emmap_prev_[it->first].begin ();
+	     jt != emmap_prev_[it->first].end (); ++jt) {
+	  emmap_[it->first][jt->first] = Divide (jt->second, total_);
+	  jt->second = Weight::Zero ();
+	}
+      }
+      total_ = Weight::Zero ();
+    } else if (max_type_ == GP_MAX) {
+      //TO DO
     }
     return change;
   }
